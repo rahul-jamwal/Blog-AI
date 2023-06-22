@@ -86,7 +86,7 @@ const NewPost = (props: Props) => {
     );
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async () => {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/post/`, {
       method: "PATCH",
