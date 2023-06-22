@@ -33,6 +33,19 @@ const Other = ({ otherPosts }: Props) => {
           imageHeight="h-80"
           post={otherPosts[3]}
         />
+        <Card
+          className="mt-5 sm:mt-0 "
+          imageHeight="h-80"
+          post={otherPosts[4]}
+        />
+        {otherPosts.map((element, index) => (
+              <Card
+              key="index"
+              className="mt-5 sm:mt-0 "
+              imageHeight="h-80"
+              post={otherPosts[index]}
+            />
+            ))}
       </div>
     </section>
   );

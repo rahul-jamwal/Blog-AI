@@ -16,6 +16,7 @@ module.exports = {
         "accent-red": "#EA9648",
         "accent-orange": "#F6CF68",
         "accent-green": "#C2E9B4",
+        "crimson-red": "#FF0000"
       },
       backgroundImage: (theme) => ({
         "gradient-gradual":

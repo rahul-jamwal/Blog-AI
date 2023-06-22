@@ -1,7 +1,8 @@
 import { Editor, EditorContent } from "@tiptap/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EditorMenuBar from "./EditorMenuBar";
 import { RocketLaunchIcon } from "@heroicons/react/24/solid";
+import { getCurrentUser } from "@/app/firebase/auth";
 
 type Props = {
   contentError: string;
@@ -9,6 +10,7 @@ type Props = {
   isEditable: boolean;
   setContent: (content: string) => void;
   title: string;
+  canEdit: boolean;
 };
 
 const Article = ({
@@ -17,6 +19,7 @@ const Article = ({
   isEditable,
   setContent,
   title,
+  canEdit,
 }: Props) => {
   const [role, setRole] = useState<string>("I am a helpful assistant.");
 
@@ -44,7 +47,6 @@ const Article = ({
     editor.chain().focus().setContent(data.content).run();
     setContent(data.content);
   };
-
   
   return (
     <article className="text-wh-500 leading-8">

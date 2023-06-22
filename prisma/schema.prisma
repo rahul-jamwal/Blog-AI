@@ -15,7 +15,7 @@ model Post {
   title     String
   category  String
   content   String   @db.Text
-  author    String
-  image     String
+  author    String   
+  image     String   @db.Text
   snippet   String   @db.Text
 }

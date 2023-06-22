@@ -1,7 +1,8 @@
 import { FormattedPost } from "@/app/types";
 import { Editor } from "@tiptap/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { XMarkIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
+import { getCurrentUser } from "@/app/firebase/auth";
 
 type Props = {
   isEditable: boolean;
@@ -14,6 +15,7 @@ type Props = {
   setTempContent: (tempContent: string) => void;
   editor: Editor | null;
   post: FormattedPost;
+  canEdit: boolean;
 };
 
 const CategoryAndEdit = ({
@@ -21,6 +23,7 @@ const CategoryAndEdit = ({
   handleIsEditable,
   title,
   setTitle,
+  canEdit,
   tempTitle,
   setTempTitle,
   tempContent,
@@ -45,19 +48,21 @@ const CategoryAndEdit = ({
       <h4 className="bg-accent-orange py-2 px-5 tex-wh-900 text-sm font-bold">
         {post.category}
       </h4>
-      <div className="mt-4">
-        {isEditable ? (
-          <div className="flex justify-between gap-3">
-            <button onClick={handleCancelEdit}>
-              <XMarkIcon className="h-6 w-6 text-accent-red" />
+      {canEdit && (
+        <div className="mt-4">
+          {isEditable ? (
+            <div className="flex justify-between gap-3">
+              <button onClick={handleCancelEdit}>
+                <XMarkIcon className="h-6 w-6 text-accent-red" />
+              </button>
+            </div>
+          ) : (
+            <button onClick={handleEnableEdit}>
+              <PencilSquareIcon className="h-6 w-6 text-accent-red" />
             </button>
-          </div>
-        ) : (
-          <button onClick={handleEnableEdit}>
-            <PencilSquareIcon className="h-6 w-6 text-accent-red" />
-          </button>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

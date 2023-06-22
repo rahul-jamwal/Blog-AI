@@ -1,4 +1,5 @@
 import { Post } from "@prisma/client";
+import { useEffect, useState } from "react";
 import Tech from "./(home)/Tech";
 import Travel from "./(home)/Travel";
 import Trending from "./(home)/Trending";
@@ -6,6 +7,7 @@ import Other from "./(shared)/Other";
 import Sidebar from "./(shared)/Sidebar";
 import Subscribe from "./(shared)/Subscribe";
 import { prisma } from "./api/client";
+import { getCurrentUser } from "./firebase/auth";
 
 export const revalidate = 60;
 
@@ -14,10 +16,10 @@ const getPosts = async () => {
 
   const formattedPosts = await Promise.all(
     posts.map( async (post: Post) => {
-      const imageModule = require(`../public${post.image}`)
+      // const imageModule = require(`../public${post.image}`)
       return {
         ...post,
-        image: imageModule.default,
+        // image: imageModule.default,
       }
     })
   )
@@ -26,24 +28,27 @@ const getPosts = async () => {
 }
 
 export default async function Home() {
-  
   const posts = await getPosts();
   const formatPosts = () => {
     const trendingPosts: Array<Post> = [];
     const techPosts: Array<Post> = [];
     const travelPosts: Array<Post> = [];
     const otherPosts: Array<Post> = [];
-
+    let cntTech: number = 0;
+    let cntTravel: number = 0;
+    let cntOther: number = 0;
     posts.forEach((post: Post, i: number) => {
       if(i < 4) {
         trendingPosts.push(post);
-      }if(post?.category == 'Tech') {
+      }if(post?.category == 'Tech' && cntTech<=4) {
         techPosts.push(post);
+        cntTech += 1;
       }
-      else if(post?.category == 'Travel') {
+      else if(post?.category == 'Travel' && cntTravel<=4) {
         travelPosts.push(post);
+        cntTravel += 1;
       }
-      else if(post?.category == 'Interior Design') {
+      else{
         otherPosts.push(post);
       }
     })
@@ -61,6 +66,7 @@ export default async function Home() {
           <Tech techPosts={techPosts}/>
           <Travel travelPosts={travelPosts}/>
           <Other otherPosts={otherPosts}/>
+
           <div className="hidden md:block">
             <Subscribe />
           </div>
