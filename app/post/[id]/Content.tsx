@@ -64,7 +64,7 @@ const Content = ({ post }: Props) => {
     editable: isEditable,
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async () => {
 
     // validation checks
     if(title === "") setTitleError("This Field is reuqired")
@@ -101,7 +101,7 @@ const Content = ({ post }: Props) => {
     setIsEditable(bool);
     editor?.setEditable(bool);
   };
-  const deletePostHandler= async (e: React.FormEvent<HTMLFormElement>) => {
+  const deletePostHandler= async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_URL}/api/delete/${post?.id}`,
       {
