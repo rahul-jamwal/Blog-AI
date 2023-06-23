@@ -38,9 +38,7 @@ export default async function Home() {
     let cntTravel: number = 0;
     let cntOther: number = 0;
     posts.forEach((post: Post, i: number) => {
-      if(i < 4) {
-        trendingPosts.push(post);
-      }if(post?.category == 'Tech' && cntTech<=4) {
+      if(post?.category == 'Tech' && cntTech<=4) {
         techPosts.push(post);
         cntTech += 1;
       }
@@ -50,6 +48,11 @@ export default async function Home() {
       }
       else{
         otherPosts.push(post);
+      }
+    })
+    posts.slice().reverse().forEach((post: Post, i: number) => {
+      if(i < 4) {
+        trendingPosts.push(post);
       }
     })
 

@@ -99,19 +99,16 @@ const NewPost = (props: Props) => {
         content: content,
         author: "Jack Everstein",
         image: url,
-        snippet: getWordStr(content),
+        snippet: `This blog tells a brief information and writers thoughts about ${title}`,
       }),
     });
     const data = await response.json();
-    alert("POST HAS BEEN Upploaded")
+    alert("POST HAS BEEN Uploaded")
     console.log("POST Uploaded")
     window.location.reload(); 
   };
 
-  const getWordStr = (str: string) => {
-    return str.split(/\s+/).slice(0, 10).join(" ");
-  };
-
+  
   // async function main() {
   //   console.log(`Start seeding...`);
   //   await prisma.post.create({ data: post });
